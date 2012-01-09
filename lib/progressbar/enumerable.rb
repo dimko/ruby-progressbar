@@ -3,14 +3,14 @@
 #
 # == Example:
 #
-#   [1,2,3].each_with_progressbar('title') { sleep(0.5} }
+#   [1, 2, 3].each_with_progressbar('title') { sleep(0.5} }
+#
 module Enumerable
   alias_method :method_missing_without_progressbar, :method_missing #:nodoc:
 
-  def method_missing(name,*args) #:nodoc:
-    if name.to_s =~ /_with_progressbar$/
-      name_without_progressbar = name.to_s.gsub(/_with_progressbar$/, '')
-      progressbar_title = args.shift || self.class.to_s+'#'+name_without_progressbar
+  def method_missing(name, *args) #:nodoc:
+    if name_without_progressbar = name.to_s[/^([_a-zA-Z]\w*)_with_progressbar$/, 1]
+      progressbar_title = args.shift || [ self.class.to_s, name_without_progressbar ].join('#')
 
       ProgressBar.block(progressbar_title, self.length) do |pbar|
         self.send(name_without_progressbar) do |*args| 

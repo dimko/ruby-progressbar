@@ -70,7 +70,7 @@ class ProgressBar
     @finished = false
     @start_time = Time.now
     @previous_time = @start_time
-    @title_width = [14, title.length+1].max
+    @title_width = [14, title.length + 1].max
     @format = "%-#{@title_width}s %3d%% %s %s"
     @format_arguments = [:title, :percentage, :bar, :stat]
     clear
@@ -215,7 +215,6 @@ class ProgressBar
     sprintf("%02d:%02d:%02d", hour, min, sec)
   end
 
-
   def fmt_elapsed
     elapsed = Time.now - @start_time
     sprintf("Time: %s", format_time(elapsed))
@@ -226,7 +225,7 @@ class ProgressBar
   end
 
   def show
-    arguments = @format_arguments.map {|method| 
+    arguments = @format_arguments.map {|method|
       method = sprintf("fmt_%s", method)
       send(method)
     }
@@ -261,5 +260,5 @@ class ProgressBar
     if @current_percentage != @previous_percentage || Time.now - @previous_time >= 1 || @finished
       show
     end
-  end  
+  end
 end
