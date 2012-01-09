@@ -3,7 +3,7 @@
 #
 # == Example:
 #
-#   [1, 2, 3].each_with_progressbar('title') { sleep(0.5} }
+#   [1, 2, 3].each_with_progressbar('title') { sleep(0.5) }
 #
 module Enumerable
   alias_method :method_missing_without_progressbar, :method_missing #:nodoc:
